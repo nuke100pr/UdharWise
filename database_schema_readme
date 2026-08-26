@@ -1,0 +1,91 @@
+Table users {
+  id integer [primary key]
+  name varchar [not null]
+  email varchar [not null, unique]
+  status varchar [not null, default: 'active']
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table groups {
+  id integer [primary key]
+  name varchar [not null]
+  description text
+  image_uri varchar
+  status varchar [not null, default: 'active']
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table group_members {
+  id integer [primary key]
+  user_id integer [not null]
+  group_id integer [not null]
+  status varchar [not null, default: 'active']
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+  indexes {
+    (user_id, group_id) [unique]
+  }
+}
+
+Table expenses {
+  id integer [primary key]
+  amount integer [not null]
+  created_by_id integer [not null]
+  payer_id integer [not null]
+  group_id integer [not null]
+  currency_id integer [not null]
+  name varchar
+  description text
+  status varchar [not null, default: 'active']
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table expense_splits {
+  id integer [primary key]
+  expense_id integer [not null]
+  user_id integer [not null]
+  amount integer [not null]
+  status varchar [not null, default: 'active']
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+  indexes {
+    (expense_id, user_id) [unique]
+  }
+}
+
+Table currencies {
+  id integer [primary key]
+  code varchar [not null, unique]
+  name varchar [not null]
+}
+
+Table settlements {
+  id integer [primary key]
+  group_id integer
+  payer_id integer [not null]
+  payee_id integer [not null]
+  amount integer [not null]
+  currency_id integer [not null]
+  status varchar [not null, default: 'active']
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Ref: group_members.user_id > users.id
+Ref: group_members.group_id > groups.id
+
+Ref: expenses.created_by_id > users.id
+Ref: expenses.payer_id > users.id
+Ref: expenses.group_id > groups.id
+Ref: expenses.currency_id > currencies.id
+
+Ref: expense_splits.expense_id > expenses.id
+Ref: expense_splits.user_id > users.id
+
+Ref: settlements.group_id > groups.id
+Ref: settlements.payer_id > users.id
+Ref: settlements.payee_id > users.id
+Ref: settlements.currency_id > currencies.id
