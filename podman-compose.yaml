@@ -9,6 +9,8 @@ services:
       depends_on:
         - postgres
         - redis
+      volumes:
+        - .:/app  
   postgres:
     container_name: postgres_uw
     image: postgres
