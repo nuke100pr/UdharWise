@@ -1,0 +1,8 @@
+development:
+  adapter: postgresql     # tells rails which type of database to use
+  encoding: unicode
+  database: udharwise_development # name of the database inside the container
+  username: postgres 
+  password: mysecretpassword
+  host: postgres
+  port: 5432

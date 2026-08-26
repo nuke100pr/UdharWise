@@ -1,0 +1,29 @@
+services:
+  rails:
+      container_name: rails_uw
+      build:
+         context: .
+         dockerfile: Containerfile
+      ports:
+        - "3000:3000"
+      depends_on:
+        - postgres
+        - redis
+  postgres:
+    container_name: postgres_uw
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  redis:
+    container_name: redis_uw
+    image: redis
+    ports:
+      - "6380:6379"
+
+volumes:
+  postgres_data:
