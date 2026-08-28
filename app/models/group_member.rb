@@ -5,5 +5,8 @@ class GroupMember < ApplicationRecord
   
   has_many :expenses, through: :group
   has_many :settlements, through: :group
-  
+
+  validates :user, presence: true
+  validates :group, presence: true
+
 end

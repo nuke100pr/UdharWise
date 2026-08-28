@@ -9,5 +9,8 @@ class User < ApplicationRecord
   
   has_many :settlements_as_payer , class_name: 'Settlement', foreign_key: 'payer_id'
   has_many :settlements_as_payee , class_name: 'Settlement', foreign_key: 'payee_id'
-  
+
+  validates :name, presence: true
+  validates :email, presence: true, uniqueness: true
+
 end
