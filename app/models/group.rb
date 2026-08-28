@@ -6,7 +6,8 @@ class Group < ApplicationRecord
   has_many :users, through: :group_members
   has_many :expenses, dependent: :destroy
   has_many :settlements, dependent: :destroy
-
-
+  
+  validates :name, presence: true
+  validates :created_by, presence: true
 
 end
