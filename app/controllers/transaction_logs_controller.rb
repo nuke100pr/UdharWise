@@ -1,0 +1,2 @@
+class TransactionLogsController < ApplicationController
+end

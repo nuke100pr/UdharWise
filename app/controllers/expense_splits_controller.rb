@@ -1,0 +1,2 @@
+class ExpenseSplitsController < ApplicationController
+end
