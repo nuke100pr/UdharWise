@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_27_060610) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_28_012428) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -62,6 +62,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_27_060610) do
 
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.bigint "created_by_id", null: false
     t.string "description"
     t.string "image_uri"
     t.string "name", null: false
@@ -101,6 +102,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_27_060610) do
   add_foreign_key "expenses", "users", column: "payer_id"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
+  add_foreign_key "groups", "users", column: "created_by_id"
   add_foreign_key "settlements", "currencies"
   add_foreign_key "settlements", "groups"
   add_foreign_key "settlements", "users", column: "payee_id"
